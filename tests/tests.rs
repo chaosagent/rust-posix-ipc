@@ -4,9 +4,9 @@ use ipc::signals;
 
 #[test]
 fn raise_and_catch_with_closure() {
-    let mut caught = false;
+    static mut caught: bool = false;
     {
-        let f = |Signal| {caught = true;println!("Caught!")};
+        let f = |s: signals::Signal| {unsafe { caught = true }; println!("Caught!")};
         unsafe {
             signals::Signal::Usr1.handle(Box::new(f));
         }
