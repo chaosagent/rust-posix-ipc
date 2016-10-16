@@ -82,7 +82,7 @@ pub mod signals {
     mod glue {
         use super::Signal;
         use enum_primitive::FromPrimitive;
-        use super::libc;
+        use libc;
         use std::mem;
 
         #[derive(Clone, Copy, Debug)]
