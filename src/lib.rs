@@ -1,3 +1,4 @@
+#![feature(const_fn)]
 #![feature(trace_macros)]
 
 #[macro_use]
@@ -91,26 +92,13 @@ pub mod signals {
             bar: usize
         }
 
-        static mut handlers: [FnPtr; 18] = [
-            FnPtr { foo: 0, bar: 0 },
-            FnPtr { foo: 0, bar: 0 },
-            FnPtr { foo: 0, bar: 0 },
-            FnPtr { foo: 0, bar: 0 },
-            FnPtr { foo: 0, bar: 0 },
-            FnPtr { foo: 0, bar: 0 },
-            FnPtr { foo: 0, bar: 0 },
-            FnPtr { foo: 0, bar: 0 },
-            FnPtr { foo: 0, bar: 0 },
-            FnPtr { foo: 0, bar: 0 },
-            FnPtr { foo: 0, bar: 0 },
-            FnPtr { foo: 0, bar: 0 },
-            FnPtr { foo: 0, bar: 0 },
-            FnPtr { foo: 0, bar: 0 },
-            FnPtr { foo: 0, bar: 0 },
-            FnPtr { foo: 0, bar: 0 },
-            FnPtr { foo: 0, bar: 0 },
-            FnPtr { foo: 0, bar: 0 },
-        ];
+        impl FnPtr {
+            pub const fn null() -> FnPtr {
+                FnPtr { foo: 0, bar: 0 }
+            }
+        }
+
+        static mut handlers: [FnPtr; 18] = [FnPtr::null(); 18];
 
         pub unsafe fn set_handler(sig: Signal, f: Box<FnMut(Signal)>) {
             handlers[sig as usize] = mem::transmute(f);
