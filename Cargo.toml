@@ -2,8 +2,8 @@
 
 name = "posix-ipc"
 version = "0.0.2"
-authors = ["Torrie Fischer <torrie@ripple.com>"]
+authors = ["Torrie Fischer <torrie@ripple.com>", "David Hou <david.hou314@gmail.com>"]
 description = "An API to POSIX IPC primitives"
-repository = "http://github.com/codius/rust-posix-ipc"
+repository = "http://github.com/chaosagent/rust-posix-ipc"
 license = "MIT"
 readme = "README.md"
