@@ -1,6 +1,6 @@
 [package]
 
-name = "posix-ipc"
+name = "posix_ipc"
 version = "0.0.2"
 authors = ["Torrie Fischer <torrie@ripple.com>", "David Hou <david.hou314@gmail.com>"]
 description = "An API to POSIX IPC primitives"
