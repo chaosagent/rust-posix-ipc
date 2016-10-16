@@ -7,3 +7,7 @@ description = "An API to POSIX IPC primitives"
 repository = "http://github.com/chaosagent/rust-posix-ipc"
 license = "MIT"
 readme = "README.md"
+
+[dependencies]
+enum_primitive = "0.1.0"
+libc = "0.2.17"
