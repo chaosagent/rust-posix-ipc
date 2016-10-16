@@ -6,7 +6,10 @@ use ipc::signals;
 fn raise_and_catch_with_closure() {
     static mut caught: bool = false;
     {
-        let f = |s: signals::Signal| {unsafe { caught = true }; println!("Caught!")};
+        let f = |s: signals::Signal| {
+            unsafe { caught = true };
+            println!("Caught!")
+        };
         unsafe {
             signals::Signal::Usr1.handle(Box::new(f));
         }
@@ -19,7 +22,9 @@ fn raise_and_catch_with_closure() {
 fn raise_and_catch_with_func() {
     static mut caught: bool = false;
     {
-        fn f(s: signals::Signal) {unsafe { caught = true }}
+        fn f(s: signals::Signal) {
+            unsafe { caught = true }
+        }
         unsafe {
             signals::Signal::Usr1.handle(Box::new(f));
         }

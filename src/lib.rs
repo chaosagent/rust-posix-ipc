@@ -1,6 +1,7 @@
 #![feature(trace_macros)]
 
-#[macro_use] extern crate enum_primitive;
+#[macro_use]
+extern crate enum_primitive;
 extern crate libc;
 
 use std::io;
@@ -68,9 +69,12 @@ pub mod signals {
         }
 
         pub unsafe fn handle(self, handler: Box<FnMut(Signal)>) -> Result<(), usize> {
-            match signal (self as libc::c_int, mem::transmute(glue::rust_signal_handler as unsafe extern "C" fn(_))) {
-                -1 => Result::Err(os_errno()),
-                _ => { glue::set_handler(self, handler); Result::Ok(()) }
+            match signal(self as libc::c_int, mem::transmute(glue::rust_signal_handler as unsafe extern "C" fn(_))) {
+                - 1 => Result::Err(os_errno()),
+                _ => {
+                    glue::set_handler(self, handler);
+                    Result::Ok(())
+                }
             }
         }
     }
@@ -88,27 +92,27 @@ pub mod signals {
         }
 
         static mut handlers: [FnPtr; 18] = [
-            FnPtr {foo: 0, bar: 0},
-            FnPtr {foo: 0, bar: 0},
-            FnPtr {foo: 0, bar: 0},
-            FnPtr {foo: 0, bar: 0},
-            FnPtr {foo: 0, bar: 0},
-            FnPtr {foo: 0, bar: 0},
-            FnPtr {foo: 0, bar: 0},
-            FnPtr {foo: 0, bar: 0},
-            FnPtr {foo: 0, bar: 0},
-            FnPtr {foo: 0, bar: 0},
-            FnPtr {foo: 0, bar: 0},
-            FnPtr {foo: 0, bar: 0},
-            FnPtr {foo: 0, bar: 0},
-            FnPtr {foo: 0, bar: 0},
-            FnPtr {foo: 0, bar: 0},
-            FnPtr {foo: 0, bar: 0},
-            FnPtr {foo: 0, bar: 0},
-            FnPtr {foo: 0, bar: 0},
+            FnPtr { foo: 0, bar: 0 },
+            FnPtr { foo: 0, bar: 0 },
+            FnPtr { foo: 0, bar: 0 },
+            FnPtr { foo: 0, bar: 0 },
+            FnPtr { foo: 0, bar: 0 },
+            FnPtr { foo: 0, bar: 0 },
+            FnPtr { foo: 0, bar: 0 },
+            FnPtr { foo: 0, bar: 0 },
+            FnPtr { foo: 0, bar: 0 },
+            FnPtr { foo: 0, bar: 0 },
+            FnPtr { foo: 0, bar: 0 },
+            FnPtr { foo: 0, bar: 0 },
+            FnPtr { foo: 0, bar: 0 },
+            FnPtr { foo: 0, bar: 0 },
+            FnPtr { foo: 0, bar: 0 },
+            FnPtr { foo: 0, bar: 0 },
+            FnPtr { foo: 0, bar: 0 },
+            FnPtr { foo: 0, bar: 0 },
         ];
 
-        pub unsafe fn set_handler (sig: Signal, f: Box<FnMut(Signal)>) {
+        pub unsafe fn set_handler(sig: Signal, f: Box<FnMut(Signal)>) {
             handlers[sig as usize] = mem::transmute(f);
         }
 
