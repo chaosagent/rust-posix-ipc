@@ -12,9 +12,9 @@ fn os_errno() -> usize {
 }
 
 pub mod signals {
-    use super::libc;
+    use libc;
     use std::mem;
-    use super::os_errno;
+    use os_errno;
 
     enum_from_primitive!{
     #[derive(Hash, Eq, PartialEq, Clone, Copy, Debug)]
